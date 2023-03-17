@@ -9,7 +9,6 @@ import 'dart:convert';
 
 class KMZLoader {
   Future<Set<Polyline>> loadKMZ(BuildContext context, String filename) async {
-    print('test');
     var byteData;
 
     try {
@@ -18,9 +17,9 @@ class KMZLoader {
       print('error load kmz $e');
     }
 
-    print('byteDatas $byteData');
+    //print('byteDatas $byteData');
     var kmlString = await _parseKMZ(byteData.buffer.asUint8List());
-    print('kml string $kmlString');
+    //print('kml string $kmlString');
 
     var doc = XmlDocument.parse(kmlString);
     var polylines = _parsePolylines(doc);
@@ -57,7 +56,7 @@ class KMZLoader {
                 var lng = double.parse(latLngStrings[0]);
                 coords.add(LatLng(lat, lng));
               } else {
-                print('wrong polyline coordinate $latLngStrings');
+               // print('wrong polyline coordinate $latLngStrings');
               }
             }
           }

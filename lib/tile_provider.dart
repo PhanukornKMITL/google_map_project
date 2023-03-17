@@ -13,12 +13,12 @@ class DirectoryTileProvider extends TileProvider {
 
   @override
   Future<Tile> getTile(int x, int y, int? zoom) async {
-
     final path = '$directoryName/$zoom/$x/$y.png';
-   
     final bytes = await loadImageFromAsset(path);
-    // if (bytes == null) print('data not found');
-    // else print('found bytes data');
+    if (bytes == null)
+      print('data not found');
+    else
+      print('found bytes data');
     return decodeImageFromList(bytes).then((image) {
       return image.toByteData(format: ImageByteFormat.png).then((byteData) {
         return Tile(256, 256, byteData!.buffer.asUint8List());
@@ -27,14 +27,14 @@ class DirectoryTileProvider extends TileProvider {
   }
 
   Future<Uint8List> loadImageFromAsset(String path) async {
-  //print('path: $path');
-  var data;
-  try {
-    data = await rootBundle.load(path);
-  } catch (e) {
-   // print('eeror $e');
+    //print('path: $path');
+    var data;
+    try {
+      data = await rootBundle.load(path);
+    } catch (e) {
+      // print('eeror $e');
+    }
+    //print('data: $data');
+    return data.buffer.asUint8List();
   }
-  //print('data: $data');
-  return data.buffer.asUint8List();
-}
 }

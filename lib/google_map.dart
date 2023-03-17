@@ -8,7 +8,6 @@ import 'tile_provider.dart';
 
 class GoogleMapWidget extends StatefulWidget {
   final LatLng initialCameraPosition;
-  final List<String> _items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
   GoogleMapWidget({
     Key? key,
@@ -61,7 +60,6 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                   onMapCreated: (GoogleMapController controller) {
                     _controller = controller;
                   },
-                  //markers: {marker},
                   tileOverlays: _createTileOverlays(),
                   polylines: _polylines,
                 ),
@@ -76,48 +74,26 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   Future<void> _createPolylines() async {
     String fileName = '20220517_ky_map_block13_flight1_kml.kmz';
     print('create line');
-    final data = await kmzLoader.loadKMZ(
-        context, fileName);
+    final data = await kmzLoader.loadKMZ(context, fileName);
     setState(() {
       _polylines = data;
     });
   }
-  // Set<Polyline> _createPolylines()  {
-  //   var polylines = <Polyline>{};
-  //   print('create polyline');
-  //   // Create initial polyline
-  //   var initPolyline = Polyline(
-  //     polylineId: PolylineId('initial_polyline'),
-  //     points: [
-  //       LatLng(14.2805734, 101.3126651),
-  //       LatLng(14.280574, 101.312666),
-  //       LatLng(14.280575, 101.312666),
-  //       LatLng(14.280577, 101.312667),
-  //       LatLng(14.280578, 101.312666),
-  //       LatLng(14.280579, 101.312665),
-  //       LatLng(14.280580, 101.312664),
-  //       LatLng(14.280580, 101.312663),
-  //     ],
-  //     color: Colors.blue,
-  //     width: 10,
-  //   );
-  //   polylines.add(initPolyline);
-
-  //   print(polylines);
-
-  //   return polylines;
-  // }
 }
 
 Set<TileOverlay> _createTileOverlays() {
-  return <TileOverlay>[
+  print('WtF!');
+  var tile = <TileOverlay>[
     TileOverlay(
-      tileOverlayId: TileOverlayId('myTileOverlay'),
+      tileOverlayId: const TileOverlayId('myTileOverlay'),
       tileProvider: _createTileProvider(),
       fadeIn: true,
       visible: true,
     ),
   ].toSet();
+
+  print(tile);
+  return tile;
 }
 
 TileProvider _createTileProvider() {
